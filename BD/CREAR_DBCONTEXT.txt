@@ -1,0 +1,4 @@
+
+1.Scaffold-DbContext "Server=LAPTOP-NAEARRFA\INMOBEST;Database=COREDB;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqLServer -OutPutDir Models
+
+2.Scaffold-DbContext "Data Source=LAPTOP-NAEARRFA\INMOBEST;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqoServer -OutPutDir Models
