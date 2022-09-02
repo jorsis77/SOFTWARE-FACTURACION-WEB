@@ -1,5 +1,16 @@
 ******************* PAUTAS Y AYUDAS ************************
 
+COmo funcionara la app
+
+1.EN el Home se mostraran los tipos de empresas que se pueden crear(Post, Ferreteria, Drogueeria).
+  una vez que el usuario escoja se verifica, si esta logueado se envia a la pagina SelCreateMpre.
+-la pagina SelCreateMpre se mostrarn iconos (Post, Ferreteria, Drogueeria) y debajo permitira seleccionar con que empresa oficina y pais va a trabajar.
+  1.1 una vez seleccinado laempresa con la que va a trabajar se debe enviar a la pagina HomeEpmresa donde tendra todas       las opciones relacionadas con el negocio.
+  2.2 Cuando el usuario dio clicl en crear empresa y este esta loqueado debe ir a la pagina CrearEmpresa.
+   
+
+
+
 1.SACFFOLD A BD EN .NET CORE(Databse First)
 
     con usuario y password
@@ -13,6 +24,11 @@
     VIDEO => https://www.youtube.com/watch?v=ngb1YqpWfJs
     GIT => https://github.com/irandeniya/dotnet-multitenant-example.git(Mi git https://github.com/jorsis77/Tenan-1.git)
 
+    //*****    CAMPOS IMPORTANTISIMOS   /
+ F000_CODIGO NUMERIC   CODIGO EMRESA  (3,0) PRIMARY KEY identity(1,1)   
+ F000_TENANT VARCHAR(3), -- T1,T2...T99 ES TRAIDO DEL APSETTING.JSON,
+ F000_LOGO  VARCHAR(100),-- RUTA DONDE ESTA LAIMAGN DEL LOGO
+ F000_TIPO_EMPRESA VARCHAR(1),-- E.G  EJEMPLO => 1=POS ,2 = FERRETERIA, 3 = DROGUERIA
 
 
 
