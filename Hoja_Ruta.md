@@ -3,8 +3,8 @@
 COmo funcionara la app
 
 1.EN el Home se mostraran los tipos de empresas que se pueden crear(Post, Ferreteria, Drogueeria).
-  una vez que el usuario escoja se verifica, si esta logueado se envia a la pagina SelCreateMpre.
--la pagina SelCreateMpre se mostrarn iconos (Post, Ferreteria, Drogueeria) y debajo permitira seleccionar con que empresa oficina y pais va a trabajar.
+  una vez que el usuario escoja se verifica, si esta logueado se envia a la pagina CrearEmpresa,Sino se nvi  a la pagina de login.
+-la pagina HOME se mostrarn iconos (Post, Ferreteria, Drogueeria) y debajo permitira seleccionar con que empresa oficina y pais va a trabajar.
 
   1.1 una vez seleccinado laempresa con la que va a trabajar se debe enviar a la pagina HomeEpmresa donde tendra todas       las opciones relacionadas con el negocio.
   
