@@ -5,6 +5,7 @@ using MULTI.Util;
 using System.Diagnostics;
 
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MULTI.Controllers
 {
@@ -30,7 +31,7 @@ namespace MULTI.Controllers
 
             return View(sites);
         }
-
+        [Authorize(Roles ="Mod")]
         public IActionResult Privacy()
         {
             return View();
