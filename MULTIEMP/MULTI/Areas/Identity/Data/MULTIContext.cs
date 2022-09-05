@@ -1,22 +1,26 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using MULTI.Areas.Identity.Data;
+using MULTI.Services;
 
-namespace MULTI.Data;
 
-public class MULTIContext : IdentityDbContext<IdentityUser>
+namespace MULTI.Areas.Identity.Data;
+
+public class MULTIContext : IdentityDbContext<ApplicationUser>    //<IdentityUser>
 {
+    private string ConnectionString;
     public MULTIContext(DbContextOptions<MULTIContext> options,
-        IConfiguration config
-         //ITenantService service
+        TenantService tenantService
         )
         : base(options)
     {
+        ConnectionString = tenantService?.GetConnectionString();
         //_CONFIG
-      /*  if (service.Tenant != NULL)
-        {
-            _tenant = service.Tenant!;
-        }*/
+        /*  if (service.Tenant != NULL)
+          {
+              _tenant = service.Tenant!;
+          }*/
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
@@ -37,8 +41,9 @@ public class MULTIContext : IdentityDbContext<IdentityUser>
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var tenant = _tenantService.Tenant;
-        var connectionStr = _configuration.GetConnectionString(tenant);
-        optionsBuilder.UseSqlite(connectionStr);
+        if (ConnectionString != null)
+        {
+            optionsBuilder.UseSqlServer(ConnectionString);
+        }
     }
 }

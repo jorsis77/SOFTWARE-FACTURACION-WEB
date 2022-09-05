@@ -3,22 +3,25 @@ using MULTI.Util;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using MULTI.Data;
-
+using MULTI.Areas.Identity.Data;
+using MULTI.Services;
 
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'MULTIContextConnection' not found.");
+//var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'MULTIContextConnection' not found.");
 
 
 // Add services to the container.
 
-//*** ServiceLifetime.Transient garantiza que en cada request se instancie el Multicontext
-builder.Services.AddDbContext<MULTIContext>(options =>
-    options.UseSqlServer(connectionString),ServiceLifetime.Transient);
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<MULTIContext>();
+
+builder.Services.AddScoped<TenantService>();
+
+//*** ServiceLifetime.Transient garantiza que en cada request se instancie el Multicontext
+builder.Services.AddDbContext<MULTIContext>();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<MULTIContext>().AddDefaultTokenProviders(); ;
 
 // asigna a la clase "TenantSettings"  la configuracion de la seccion "Tenat" del appseting.json
 // propiedad Sites diccionario T1,t2..= TenantSettings (conectionstring..) 
@@ -29,7 +32,8 @@ builder.Services.Configure<TenantSettings>((settings) => {
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-
+builder.Services.AddMvc();
+builder.Services.AddRazorPages();
 // Pendiente validar que
 builder.Services.ConfigureApplicationCookie(options =>
 {

@@ -1,7 +1,9 @@
-﻿@model  List<MULTI.Models.TenantSiteModel>
+﻿@using MULTI.Areas.Identity.Data;
+@model List<MULTI.Models.TenantSiteModel>
 
 @{
     ViewData["Title"] = "Home Page";
+    var site = (MULTI.Models.TenantSiteModel) ViewBag.SelectedSite;
 }
 
 <div class="text-center">
@@ -9,7 +11,9 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
-    @foreach (var st in Model)
-    {
-        <p><img src="@Url.Content("~/logo/" + st.Key)" /> @st.Name <a href="@Url.Action("SelectSite", new { site = st.Key })">Select</a></p>
-    }
+@if (site != null)
+{
+    <h2>
+        @site.Name <a href="@Url.Action("UnselectSite", new { site = site.Key })">Logout from site</a>
+    </h2>
+}
