@@ -37,29 +37,63 @@ namespace MULTI.Controllers
 
         public IActionResult Index()
         {
+            IEnumerable<TenantSiteModel>? sites;
             //SI esta autenticado muestrele las empresad creadas  para que determine con cual quiere trabajar
             if (User.Identity.IsAuthenticated)
             {
                 //SELECT * FROM EMPRESA
+
             }
 
-            ViewBag.SelectedSite = new TenantSiteModel
+            //Muestre siempre los tipos de empresa que  se pueden crear (Post,ferreteria,drogueria...)
+            var site = tenantService.GetTenant();
+            if (site != null)
             {
-                Key = "Pruebakey",
-                Logo = "site.logo",
-                Name = "site.name"
-            };
+                ViewBag.SelectedSite = new TenantSiteModel
+                {
+                    Key = tenantService.GetTenantCode(),
+                    Logo = ".logo",
+                    Name = "site.name"
+                };
+            }
+
+           
+           
 
 
-            var sites = tenantSettings.Sites.Select(s => new TenantSiteModel
+            sites = tenantSettings.Sites.Select(s => new TenantSiteModel
             {
                 Key = s.Key,
                 Logo = "Ruta del logo", //   s.Value.logo,
-                Name =  s.Value.connectionString // "Nombre empresa",// s.Value.name
+                Name = s.Value.connectionString // "Nombre empresa",// s.Value.name
             }).ToList();
+
 
             return View(sites);
         }
+
+
+        public IActionResult SelectSite(string site)
+        {
+            if (tenantSettings.Sites.ContainsKey(site))
+            {
+                Response.Cookies.Append("tenant-code", site);
+            }
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult UnselectSite(string site)
+        {
+            if (tenantSettings.Sites.ContainsKey(site))
+            {
+                Response.Cookies.Delete("tenant-code");
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
         [Authorize(Roles ="Mod")]
         public IActionResult Privacy()
         {

@@ -62,6 +62,15 @@ namespace MULTI.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
+
+            [Required]
+            [DataType(DataType.Text)]
+            [Display(Name = "First name")]
+            public string FirstName { get; set; }
+            [Required]
+            [Display(Name = "Last name")]
+            [DataType(DataType.Text)]
+            public string LastName { get; set; }
         }
 
         private async Task LoadAsync(ApplicationUser user)
@@ -73,7 +82,11 @@ namespace MULTI.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+
+                FirstName = user.FirstName,
+                LastName = user.LastName
+
             };
         }
 
@@ -113,6 +126,21 @@ namespace MULTI.Areas.Identity.Pages.Account.Manage
                     return RedirectToPage();
                 }
             }
+
+
+            //Aquí nuestros campos
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+            //Después de validar actualizamos
+            await _userManager.UpdateAsync(user);
+
+          
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";

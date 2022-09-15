@@ -1,5 +1,11 @@
 ******************* PAUTAS Y AYUDAS ************************
 
+*********YA FUNCIONA****************
+  http://localhost:60710/Identity/Account/Manage
+
+***********************************
+
+
 COmo funcionara la app
 
 1.EN el Home se mostraran los tipos de empresas que se pueden crear(Post, Ferreteria, Drogueeria).

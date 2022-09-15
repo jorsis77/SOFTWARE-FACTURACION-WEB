@@ -2,13 +2,17 @@
 using Microsoft.Extensions.Options;
 using MULTI.Models;
 using MULTI.Util;
-namespace MULTI.Services;
+
     using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-    public class TenantService
+
+
+namespace MULTI.Services
+{
+public class TenantService
     {
         private TenantSettings tenantSettings;
         private HttpContext httpContext;
@@ -20,7 +24,7 @@ using System.Threading.Tasks;
             tenantSettings = options.Value;
             httpContext = contextAccessor.HttpContext;
 
-            if (httpContext.Request.Cookies.TryGetValue("tenant-code", out string site) && tenantSettings.Sites.ContainsKey(site))
+              if (httpContext.Request.Cookies.TryGetValue("tenant-code", out string site) && tenantSettings.Sites.ContainsKey(site))
             {
                 tenantCode = site;
                 tenant = tenantSettings.Sites[site];
@@ -42,6 +46,7 @@ using System.Threading.Tasks;
             return tenant;
         }
     }
+}
 
 
 

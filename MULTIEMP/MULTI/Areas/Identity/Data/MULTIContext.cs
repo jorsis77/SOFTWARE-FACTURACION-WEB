@@ -9,7 +9,7 @@ namespace MULTI.Areas.Identity.Data;
 
 public class MULTIContext : IdentityDbContext<ApplicationUser>    //<IdentityUser>
 {
-    private string ConnectionString;
+    private  string ?ConnectionString;
     public MULTIContext(DbContextOptions<MULTIContext> options,
         TenantService tenantService
         )
@@ -41,9 +41,12 @@ public class MULTIContext : IdentityDbContext<ApplicationUser>    //<IdentityUse
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (ConnectionString != null)
+      //  if (!optionsBuilder.IsConfigured)
         {
-            optionsBuilder.UseSqlServer(ConnectionString);
+            if (ConnectionString != null)
+            {
+                optionsBuilder.UseSqlServer(ConnectionString);
+            }
         }
     }
 }

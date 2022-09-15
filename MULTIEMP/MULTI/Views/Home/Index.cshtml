@@ -11,9 +11,43 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+
+
+
 @if (site != null)
 {
     <h2>
         @site.Name <a href="@Url.Action("UnselectSite", new { site = site.Key })">Logout from site</a>
     </h2>
 }
+else
+{
+    foreach (var st in Model)
+    {
+        <p><img src="@Url.Content("~/logo/" + st.Logo)" /> @st.Name <a href="@Url.Action("SelectSite", new { site = st.Key })">Select</a></p>
+    }
+}
+
+
+@*SDFSADSDF @if (Model != null)
+ { *@
+    <table>
+        <thead  class="thead-dark">
+            <tr>
+                <th scope="col">Key </th>   
+                <th scope="col">Conn </th>   
+            </tr>
+        </thead>
+          <tbody>
+
+            @foreach (var item in Model)
+            {
+         
+            <tr>
+                <td> @item.Key </td>
+                <td> @item.Name </td>
+            </tr>
+            }    
+     </tbody>
+      </table>
+<!-- }  -->
